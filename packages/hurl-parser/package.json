@@ -1,0 +1,46 @@
+{
+  "name": "@htptp/hurl-parser",
+  "type": "module",
+  "description": "The Hurl parser, callable from pure JS!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cprecioso/htptp.git"
+  },
+  "homepage": "https://github.com/Orange-cprecioso/htptp/tree/master/packages/hurl-parser#readme",
+  "bugs": {
+    "url": "https://github.com/cprecioso/htptp/issues?q=is%3Ahurl-parser"
+  },
+  "author": "Carlos Precioso",
+  "license": "ISC",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": null
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "http",
+    "hurl",
+    "parser"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "prepack": "$npm_execpath run build"
+  },
+  "devDependencies": {
+    "@cprecioso/rollup-plugin-wasm": "^1.2.2",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "execa": "^6.1.0",
+    "rollup": "^2.69.0",
+    "rollup-plugin-ts": "^2.0.5",
+    "typescript": "^4.6.2",
+    "wasm-pack": "^0.10.2"
+  },
+  "packageManager": "yarn@3.2.0"
+}

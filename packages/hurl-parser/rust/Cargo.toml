@@ -1,0 +1,15 @@
+[package]
+name = "hurl-parser-rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2.63"
+hurl_core = "1.6.0"
+hurlfmt = "1.6.0"
+
+[profile.release]
+opt-level = "s"
