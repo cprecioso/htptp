@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/cprecioso/htptp.git"
   },
-  "homepage": "https://github.com/Orange-cprecioso/htptp/tree/master/packages/hurl-parser#readme",
+  "homepage": "https://github.com/cprecioso/htptp/tree/master/packages/hurl-parser#readme",
   "bugs": {
     "url": "https://github.com/cprecioso/htptp/issues?q=is%3Ahurl-parser"
   },
