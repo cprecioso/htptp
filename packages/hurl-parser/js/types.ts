@@ -65,7 +65,7 @@ export interface FileBody {
 }
 
 export interface Response {
-  version: Version
+  version?: Version
   status?: number
   captures?: Capture[]
   headers?: Pair[]
