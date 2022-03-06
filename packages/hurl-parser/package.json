@@ -1,6 +1,6 @@
 {
   "name": "@htptp/hurl-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "The Hurl parser, callable from pure JS!",
   "repository": {
