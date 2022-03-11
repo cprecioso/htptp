@@ -1,9 +1,7 @@
 import { parse as hurlParse } from "../rust/pkg"
-import * as Hurl from "./types"
+import { Document } from "@htptp/hurl-types"
 
-export type { Hurl }
-
-export const parse = (input: string): Hurl.Document => {
+export const parse = (input: string): Document => {
   try {
     const result = hurlParse(input)
     return JSON.parse(result)

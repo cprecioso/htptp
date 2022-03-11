@@ -52,12 +52,23 @@ __metadata:
   resolution: "@htptp/hurl-parser@workspace:packages/hurl-parser"
   dependencies:
     "@cprecioso/rollup-plugin-wasm": ^1.2.2
+    "@htptp/hurl-types": "workspace:^"
     "@rollup/plugin-node-resolve": ^13.1.3
     execa: ^6.1.0
     rollup: ^2.69.0
     rollup-plugin-ts: ^2.0.5
     typescript: ^4.6.2
     wasm-pack: ^0.10.2
+  languageName: unknown
+  linkType: soft
+
+"@htptp/hurl-types@workspace:^, @htptp/hurl-types@workspace:packages/hurl-types":
+  version: 0.0.0-use.local
+  resolution: "@htptp/hurl-types@workspace:packages/hurl-types"
+  dependencies:
+    rollup: ^2.69.0
+    rollup-plugin-ts: ^2.0.5
+    typescript: ^4.6.2
   languageName: unknown
   linkType: soft
 
