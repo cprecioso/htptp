@@ -83,7 +83,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htptp/hurl-parser@workspace:packages/hurl-parser":
+"@htptp/hurl-parser@workspace:^, @htptp/hurl-parser@workspace:packages/hurl-parser":
   version: 0.0.0-use.local
   resolution: "@htptp/hurl-parser@workspace:packages/hurl-parser"
   dependencies:
@@ -110,7 +110,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htptp/polyfill-assert@workspace:packages/polyfill-assert":
+"@htptp/polyfill-assert@workspace:^, @htptp/polyfill-assert@workspace:packages/polyfill-assert":
   version: 0.0.0-use.local
   resolution: "@htptp/polyfill-assert@workspace:packages/polyfill-assert"
   dependencies:
@@ -123,7 +123,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htptp/polyfill-fetch@workspace:packages/polyfill-fetch":
+"@htptp/polyfill-fetch@workspace:^, @htptp/polyfill-fetch@workspace:packages/polyfill-fetch":
   version: 0.0.0-use.local
   resolution: "@htptp/polyfill-fetch@workspace:packages/polyfill-fetch"
   dependencies:
@@ -135,7 +135,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htptp/polyfill-xpath@workspace:packages/polyfill-xpath":
+"@htptp/polyfill-xpath@workspace:^, @htptp/polyfill-xpath@workspace:packages/polyfill-xpath":
   version: 0.0.0-use.local
   resolution: "@htptp/polyfill-xpath@workspace:packages/polyfill-xpath"
   dependencies:
@@ -158,6 +158,24 @@ __metadata:
     prettier-plugin-pkg: ^0.11.1
     prettier-plugin-sh: ^0.8.1
     typescript: ^4.6.2
+  languageName: unknown
+  linkType: soft
+
+"@htptp/runner-js@workspace:packages/runner-js":
+  version: 0.0.0-use.local
+  resolution: "@htptp/runner-js@workspace:packages/runner-js"
+  dependencies:
+    "@htptp/build": "workspace:^"
+    "@htptp/hurl-parser": "workspace:^"
+    "@htptp/hurl-types": "workspace:^"
+    "@htptp/polyfill-assert": "workspace:^"
+    "@htptp/polyfill-fetch": "workspace:^"
+    "@htptp/polyfill-xpath": "workspace:^"
+    base64-arraybuffer: ^1.0.2
+    del-cli: ^4.0.1
+    rollup: ^2.70.0
+    typescript: ^4.6.2
+    universal-base64: ^2.1.0
   languageName: unknown
   linkType: soft
 
@@ -458,6 +476,13 @@ __metadata:
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
   checksum: 9706c088a283058a8a99e0bf91b0a2f75497f185980d9ffa8b304de1d9e58ebda7c72c07ebf01dadedaac5b2907b2c6f566f660d62bd336c3468e960403b9d65
+  languageName: node
+  linkType: hard
+
+"base64-arraybuffer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "base64-arraybuffer@npm:1.0.2"
+  checksum: 15e6400d2d028bf18be4ed97702b11418f8f8779fb8c743251c863b726638d52f69571d4cc1843224da7838abef0949c670bde46936663c45ad078e89fee5c62
   languageName: node
   linkType: hard
 
@@ -2801,6 +2826,13 @@ __metadata:
   dependencies:
     imurmurhash: ^0.1.4
   checksum: 5b6876a645da08d505dedb970d1571f6cebdf87044cb6b740c8dbb24f0d6e1dc8bdbf46825fd09f994d7cf50760e6f6e063cfa197d51c5902c00a861702eb75a
+  languageName: node
+  linkType: hard
+
+"universal-base64@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "universal-base64@npm:2.1.0"
+  checksum: 03bc6f7de04aee83038c26038cd2639f470fd9665f99b3613934c4ccde5d59047d45e34ea4c843ac582da83ea1b050bf8defba8eb390e566f0be314646ddbc9b
   languageName: node
   linkType: hard
 
