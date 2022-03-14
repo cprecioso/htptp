@@ -27,11 +27,14 @@
   ],
   "scripts": {
     "build": "rollup --config",
+    "clean": "del-cli dist",
+    "dev": "rollup --config --watch",
     "prepack": "$npm_execpath run build"
   },
   "devDependencies": {
-    "rollup": "^2.69.0",
-    "rollup-plugin-ts": "^2.0.5",
+    "@htptp/build": "workspace:^",
+    "del-cli": "^4.0.1",
+    "rollup": "^2.70.0",
     "typescript": "^4.6.2"
   },
   "packageManager": "yarn@3.2.0"

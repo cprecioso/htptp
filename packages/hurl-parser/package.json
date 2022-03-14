@@ -32,6 +32,8 @@
   ],
   "scripts": {
     "build": "rollup --config",
+    "clean": "del-cli dist",
+    "dev": "rollup --config --watch",
     "prepack": "$npm_execpath run build"
   },
   "dependencies": {
@@ -39,10 +41,11 @@
   },
   "devDependencies": {
     "@cprecioso/rollup-plugin-wasm": "^1.2.2",
+    "@htptp/build": "workspace:^",
     "@rollup/plugin-node-resolve": "^13.1.3",
+    "del-cli": "^4.0.1",
     "execa": "^6.1.0",
-    "rollup": "^2.69.0",
-    "rollup-plugin-ts": "^2.0.5",
+    "rollup": "^2.70.0",
     "typescript": "^4.6.2",
     "wasm-pack": "^0.10.2"
   },

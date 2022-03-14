@@ -1,11 +1,5 @@
 // @ts-check
 
-import { defineConfig } from "rollup"
-import ts from "rollup-plugin-ts"
-import typescript from "typescript"
+import { makeConfig } from "@htptp/build/rollup/library.mjs"
 
-export default defineConfig({
-  input: "./src/index.ts",
-  output: { dir: "dist", format: "esm", entryFileNames: "[name].mjs" },
-  plugins: [ts({ typescript, tsconfig: { declaration: true } })],
-})
+export default makeConfig(import.meta.url)
