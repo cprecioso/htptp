@@ -1,9 +1,12 @@
 import * as Hurl from "@htptp/hurl-types"
-import { Response as FetchResponse } from "@htptp/polyfill-fetch"
 import { evaluateXpath } from "@htptp/polyfill-xpath"
-import { unsupportedEngine, unsupportedHurl } from "./error"
+import { unsupportedEngine, unsupportedHurl } from "../../error"
+import { ResponseContext } from "../../types"
 
-export const runQuery = async (response: FetchResponse, query: Hurl.Query) => {
+export const runQuery = async (
+  query: Hurl.Query,
+  { response }: ResponseContext
+) => {
   if (query.subquery) throw unsupportedHurl("Subquery")
 
   switch (query.type) {

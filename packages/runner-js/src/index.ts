@@ -1,6 +1,14 @@
 import { Document } from "@htptp/hurl-types"
-import { Runner } from "./Runner"
-import { Options } from "./types"
+import { runDocument } from "./run"
+import { CapturedValues, Options } from "./types"
 
-export const run = async (document: Document, options: Partial<Options> = {}) =>
-  await new Runner(document, options).run()
+export const run = async (
+  document: Document,
+  options: Partial<Options> = {}
+) => {
+  const capturedValues: CapturedValues = new Map()
+
+  await runDocument(document, { capturedValues, options })
+
+  return capturedValues
+}
