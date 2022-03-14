@@ -12,3 +12,6 @@ export const parse = (input: string): Document => {
     throw error
   }
 }
+
+export const hurl = (...args: Parameters<typeof String.raw>) =>
+  parse(String.raw(...args))
