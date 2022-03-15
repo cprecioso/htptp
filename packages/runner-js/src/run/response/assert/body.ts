@@ -48,6 +48,7 @@ export const runBodyAssertion = async (
           const actualFile = await response.arrayBuffer()
           const expectedFile = base64Decode(body.value)
           assert(await equalArrayBuffer(actualFile, expectedFile))
+          return
         }
 
         default:
