@@ -3,12 +3,10 @@ import { evaluateXpath } from "@htptp/polyfill-xpath"
 import { unsupportedEngine, unsupportedHurl } from "../../error"
 import { ResponseContext } from "../../types"
 
-export const runQuery = async (
+const runMainQuery = async (
   query: Hurl.Query,
   { response, interpolate }: ResponseContext
 ) => {
-  if (query.subquery) throw unsupportedHurl("Subquery")
-
   switch (query.type) {
     case "status":
       return response.status
@@ -45,4 +43,12 @@ export const runQuery = async (
     default:
       throw unsupportedHurl("Unknown Query")
   }
+}
+
+export const runQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
+  if (query.subquery) throw unsupportedHurl("Subquery")
+
+  const result = await runMainQuery(query, ctx)
+
+  return result
 }
