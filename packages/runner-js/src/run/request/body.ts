@@ -4,7 +4,7 @@ import { unsupportedHurl } from "../../error"
 import { RequestContext } from "../../types"
 
 export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
-  const { req, headers } = ctx
+  const { req, headers, interpolate } = ctx
 
   switch (body.type) {
     case "file":
@@ -15,13 +15,13 @@ export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
 
     case "json": {
       headers.set("Content-Type", "application/json")
-      req.body = JSON.stringify(body.value)
+      req.body = interpolate(JSON.stringify(body.value))
       return
     }
 
     case "raw-string":
     case "xml": {
-      req.body = body.value
+      req.body = interpolate(body.value)
       return
     }
 

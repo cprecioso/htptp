@@ -6,22 +6,24 @@ import fetch, {
 } from "@htptp/polyfill-fetch"
 import { encode as base64Encode } from "universal-base64"
 import { unsupportedHurl } from "../../error"
-import { EntryContext, RequestContext } from "../../types"
+import { EntryContext, Interpolator, RequestContext } from "../../types"
 import { runBody } from "./body"
 
 const isFilePair = (v: any): v is Hurl.FilePair => v.filename
 
-const addPairs = <T extends { append(name: string, value: string): void }>(
-  target: T,
-  pairs: (Hurl.Pair | Hurl.FilePair)[]
-) => {
-  for (const pair of pairs) {
-    if (isFilePair(pair))
-      throw unsupportedHurl("File in Multipart Form Data Request Option")
-    target.append(pair.name, pair.value)
+const makeAddPairs =
+  ({ interpolate }: RequestContext) =>
+  <T extends { append(name: string, value: string): void }>(
+    target: T,
+    pairs: (Hurl.Pair | Hurl.FilePair)[]
+  ) => {
+    for (const pair of pairs) {
+      if (isFilePair(pair))
+        throw unsupportedHurl("File in Multipart Form Data Request Option")
+      target.append(interpolate(pair.name), interpolate(pair.value))
+    }
+    return target
   }
-  return target
-}
 
 export const runRequest = async (
   {
@@ -37,7 +39,7 @@ export const runRequest = async (
   }: Hurl.Request,
   { options, capturedValues, interpolate }: EntryContext
 ) => {
-  const url = new URL(explicitUrl)
+  const url = new URL(interpolate(explicitUrl))
   const headers = new Headers()
   const req: FetchRequest = {}
 
@@ -50,6 +52,8 @@ export const runRequest = async (
     interpolate,
   }
 
+  const addPairs = makeAddPairs(ctx)
+
   req.method = method
 
   if (query_string_params) {
@@ -59,7 +63,9 @@ export const runRequest = async (
   if (basic_auth) {
     headers.set(
       "Authorization",
-      `Basic ${base64Encode(`${basic_auth.name}:${basic_auth.value}`)}`
+      `Basic ${base64Encode(
+        `${interpolate(basic_auth.name)}:${interpolate(basic_auth.value)}`
+      )}`
     )
   }
 
@@ -87,7 +93,7 @@ export const runRequest = async (
 
   return await fetch(url.href, {
     ...req,
-    headers: headers,
+    headers,
     signal: options.signal,
   })
 }
