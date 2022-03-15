@@ -4,10 +4,12 @@ import {
   RequestInit as FetchRequest,
   Response as FetchResponse,
 } from "@htptp/polyfill-fetch"
+import { FileSource } from "./binary"
 import { BindingRegistry } from "./run/captured"
 
 export interface RunOptions {
   signal?: AbortSignal
+  loader: (filename: string) => Promise<FileSource>
 }
 
 export type Interpolator = (input: string) => string

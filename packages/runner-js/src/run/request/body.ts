@@ -3,15 +3,18 @@ import { decode as base64ToBuffer } from "base64-arraybuffer"
 import { unsupportedHurl } from "../../error"
 import { RequestContext } from "../../types"
 
-export const runBody = (body: Hurl.Body, ctx: RequestContext) => {
-  const { req, headers, interpolate } = ctx
+export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
+  const {
+    req,
+    headers,
+    interpolate,
+    options: { loader },
+  } = ctx
 
   switch (body.type) {
     case "file":
-      throw unsupportedHurl(
-        "File Request Body",
-        "embed the data directly in the document"
-      )
+      req.body = await loader(body.filename)
+      return
 
     case "json": {
       headers.set("Content-Type", "application/json")

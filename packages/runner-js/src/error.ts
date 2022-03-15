@@ -17,3 +17,6 @@ export const variableNotFound = (name: string) =>
 
 export const alreadyDeclaredVariable = (name: string) =>
   new Error(`Can't redeclare variable [${name}]`)
+
+export const fileNotFound = (filename: string) =>
+  new Error(`Can't find file [${filename}]`)

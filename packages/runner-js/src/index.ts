@@ -1,4 +1,5 @@
 import * as Hurl from "@htptp/hurl-types"
+import { fileNotFound } from "./error"
 import { runDocument } from "./run"
 import { BindingRegistry, InputBindingRegistry } from "./run/captured"
 import { RunOptions } from "./types"
@@ -9,14 +10,24 @@ export interface Options extends Partial<RunOptions> {
 
 export const run = async (
   document: Hurl.Document,
-  { initialVariables, signal }: Options = {}
+  { initialVariables, signal, loader }: Options = {}
 ) => {
   const capturedValues = new BindingRegistry(initialVariables)
+
+  const loaderWrapper: RunOptions["loader"] = loader
+    ? (filename) => {
+        const result = loader(filename)
+        if (!result) throw fileNotFound(filename)
+        return result
+      }
+    : (filename) => {
+        throw fileNotFound(filename)
+      }
 
   await runDocument(document, {
     capturedValues,
     interpolate: capturedValues.interpolate,
-    options: { signal },
+    options: { signal, loader: loaderWrapper },
   })
 
   return capturedValues

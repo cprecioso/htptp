@@ -1,27 +1,26 @@
 import * as Hurl from "@htptp/hurl-types"
 import assert from "@htptp/polyfill-assert"
 import { decode as base64Decode } from "base64-arraybuffer"
+import { equalArrayBuffer } from "../../../binary"
 import { unsupportedHurl } from "../../../error"
 import { ResponseContext } from "../../../types"
-
-const equalArrayBuffer = (a_: ArrayBuffer, b_: ArrayBuffer): boolean => {
-  if (a_.byteLength !== b_.byteLength) return false
-
-  const a = new Uint8Array(a_)
-  const b = new Uint8Array(b_)
-
-  return a.every((v, i) => v === b[i])
-}
 
 export const runBodyAssertion = async (
   body: Hurl.Body,
   ctx: ResponseContext
 ) => {
-  const { response, interpolate } = ctx
+  const {
+    response,
+    interpolate,
+    options: { loader },
+  } = ctx
 
   switch (body.type) {
     case "file": {
-      throw unsupportedHurl("File Body Assertion")
+      const actualFile = await response.arrayBuffer()
+      const expectedFile = await loader(body.filename)
+      assert(await equalArrayBuffer(actualFile, expectedFile))
+      return
     }
 
     case "json": {
@@ -46,12 +45,9 @@ export const runBodyAssertion = async (
     case undefined: {
       switch (body.encoding) {
         case "base64": {
-          assert(
-            equalArrayBuffer(
-              await response.arrayBuffer(),
-              base64Decode(body.value)
-            )
-          )
+          const actualFile = await response.arrayBuffer()
+          const expectedFile = base64Decode(body.value)
+          assert(await equalArrayBuffer(actualFile, expectedFile))
         }
 
         default:

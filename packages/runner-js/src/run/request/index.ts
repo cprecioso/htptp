@@ -1,5 +1,6 @@
 import * as Hurl from "@htptp/hurl-types"
 import fetch, {
+  File,
   FormData,
   Headers,
   RequestInit as FetchRequest,
@@ -12,15 +13,24 @@ import { runBody } from "./body"
 const isFilePair = (v: any): v is Hurl.FilePair => v.filename
 
 const makeAddPairs =
-  ({ interpolate }: RequestContext) =>
-  <T extends { append(name: string, value: string): void }>(
+  ({ interpolate, options: { loader } }: RequestContext) =>
+  async <
+    T extends {
+      append(name: string, value: string | File): void
+    }
+  >(
     target: T,
     pairs: (Hurl.Pair | Hurl.FilePair)[]
   ) => {
     for (const pair of pairs) {
-      if (isFilePair(pair))
-        throw unsupportedHurl("File in Multipart Form Data Request Option")
-      target.append(interpolate(pair.name), interpolate(pair.value))
+      if (isFilePair(pair)) {
+        const file = new File([await loader(pair.filename)], pair.filename, {
+          type: pair.content_type,
+        })
+        target.append(interpolate(pair.name), file)
+      } else {
+        target.append(interpolate(pair.name), interpolate(pair.value))
+      }
     }
     return target
   }
@@ -70,7 +80,7 @@ export const runRequest = async (
   }
 
   if (body) {
-    runBody(body, ctx)
+    await runBody(body, ctx)
   }
 
   if (cookies) {
@@ -79,12 +89,12 @@ export const runRequest = async (
 
   if (form_params) {
     headers.set("Content-Type", "application/x-www-form-urlencoded")
-    req.body = addPairs(new URLSearchParams(), form_params)
+    req.body = await addPairs(new URLSearchParams(), form_params)
   }
 
   if (multipart_form_data) {
     headers.set("Content-Type", "multipart/form-data")
-    req.body = addPairs(new FormData(), multipart_form_data)
+    req.body = await addPairs(new FormData(), multipart_form_data)
   }
 
   if (explicitHeaders) {
