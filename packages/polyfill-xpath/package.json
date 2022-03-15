@@ -1,6 +1,6 @@
 {
   "name": "@htptp/polyfill-xpath",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "Small isomorphic xpath polyfill",
   "repository": {

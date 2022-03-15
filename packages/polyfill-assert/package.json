@@ -1,6 +1,6 @@
 {
   "name": "@htptp/polyfill-assert",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "Small isomorphic assert polyfill",
   "repository": {
