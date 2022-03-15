@@ -6,7 +6,7 @@ import fetch, {
 } from "@htptp/polyfill-fetch"
 import { encode as base64Encode } from "universal-base64"
 import { unsupportedHurl } from "../../error"
-import { EntryContext, Interpolator, RequestContext } from "../../types"
+import { EntryContext, RequestContext } from "../../types"
 import { runBody } from "./body"
 
 const isFilePair = (v: any): v is Hurl.FilePair => v.filename

@@ -1,22 +1,21 @@
 import * as Hurl from "@htptp/hurl-types"
 import { runDocument } from "./run"
-import { makeInterpolator } from "./run/interpolation"
-import { CapturedValues, ReadonlyCapturedValues, RunOptions } from "./types"
+import { BindingRegistry, InputBindingRegistry } from "./run/captured"
+import { RunOptions } from "./types"
 
 export interface Options extends Partial<RunOptions> {
-  initialVariables?: ReadonlyCapturedValues
+  initialVariables?: InputBindingRegistry
 }
 
 export const run = async (
   document: Hurl.Document,
   { initialVariables, signal }: Options = {}
 ) => {
-  const capturedValues: CapturedValues = new Map(...(initialVariables ?? []))
-  const interpolate = makeInterpolator(capturedValues)
+  const capturedValues = new BindingRegistry(initialVariables)
 
   await runDocument(document, {
     capturedValues,
-    interpolate,
+    interpolate: capturedValues.interpolate,
     options: { signal },
   })
 

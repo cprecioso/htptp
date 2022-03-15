@@ -11,3 +11,9 @@ export const unsupportedEngine = (hurlFeature: string, workaround?: string) =>
       workaround ? `\nInstead, you can ${workaround}` : ""
     }`
   )
+
+export const variableNotFound = (name: string) =>
+  new Error(`Could not find variable [${name}]`)
+
+export const alreadyDeclaredVariable = (name: string) =>
+  new Error(`Can't redeclare variable [${name}]`)
