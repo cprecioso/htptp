@@ -5,7 +5,7 @@ import { ResponseContext } from "../../types"
 
 const runMainQuery = async (
   query: Hurl.Query,
-  { response, interpolate }: ResponseContext
+  { response, interpolate, capturedValues }: ResponseContext
 ) => {
   switch (query.type) {
     case "status":
@@ -35,7 +35,7 @@ const runMainQuery = async (
       )?.[0][1]
 
     case "variable":
-      throw unsupportedHurl("Variable Query")
+      return capturedValues.get(interpolate(query.name))
 
     case "duration":
       throw unsupportedEngine("Duration Query")
