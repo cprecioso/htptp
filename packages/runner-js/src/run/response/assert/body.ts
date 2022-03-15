@@ -38,7 +38,10 @@ export const runBodyAssertion = async (
     }
 
     case "xml":
-      throw unsupportedHurl("XML Body Assertion")
+      throw unsupportedHurl(
+        "XML Body Assertion",
+        "use a raw string body assertion"
+      )
 
     case undefined: {
       switch (body.encoding) {
