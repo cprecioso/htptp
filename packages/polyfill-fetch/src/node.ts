@@ -1,1 +1,9 @@
-export { default, FormData, Headers, RequestInit, Response } from "node-fetch"
+export {
+  Blob,
+  default,
+  File,
+  FormData,
+  Headers,
+  RequestInit,
+  Response,
+} from "node-fetch"
