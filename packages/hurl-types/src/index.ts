@@ -136,10 +136,9 @@ export interface RegexQuery extends BaseQuery {
   expr: string
 }
 
-export interface VariableQuery {
+export interface VariableQuery extends BaseQuery {
   type: "variable"
   name: string
-  subquery: Query
 }
 
 export interface DurationQuery extends BaseQuery {
