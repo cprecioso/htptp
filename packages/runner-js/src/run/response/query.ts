@@ -3,10 +3,32 @@ import { evaluateXpath } from "@htptp/polyfill-xpath"
 import { unsupportedEngine, unsupportedHurl } from "../../error"
 import { ResponseContext } from "../../types"
 
-const runMainQuery = async (
-  query: Hurl.Query,
-  { response, interpolate, capturedValues }: ResponseContext
+const runRegexQuery = async (
+  input: string,
+  query: Hurl.RegexQuery,
+  { interpolate }: ResponseContext
+) => ("" + input).match(new RegExp(interpolate(query.expr)))?.[0][1]
+
+const runSubquery = async (
+  input: any,
+  query: Hurl.Query["subquery"],
+  ctx: ResponseContext
 ) => {
+  switch (query.type) {
+    case "regex":
+      return await runRegexQuery(input, query, ctx)
+
+    case "count":
+      return input.length
+
+    default:
+      throw unsupportedHurl("Unknown Subquery")
+  }
+}
+
+const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
+  const { response, interpolate, capturedValues } = ctx
+
   switch (query.type) {
     case "status":
       return response.status
@@ -30,9 +52,7 @@ const runMainQuery = async (
       throw unsupportedHurl("JSONPath Query")
 
     case "regex":
-      return (await response.text()).match(
-        new RegExp(interpolate(query.expr))
-      )?.[0][1]
+      return await runRegexQuery(await response.text(), query, ctx)
 
     case "variable":
       return capturedValues.get(interpolate(query.name))
@@ -46,9 +66,11 @@ const runMainQuery = async (
 }
 
 export const runQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
-  if (query.subquery) throw unsupportedHurl("Subquery")
-
   const result = await runMainQuery(query, ctx)
 
-  return result
+  if (query.subquery) {
+    return await runSubquery(result, query.subquery, ctx)
+  } else {
+    return result
+  }
 }
