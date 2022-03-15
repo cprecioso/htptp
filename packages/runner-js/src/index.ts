@@ -1,14 +1,18 @@
 import * as Hurl from "@htptp/hurl-types"
 import { runDocument } from "./run"
-import { CapturedValues, Options } from "./types"
+import { CapturedValues, ReadonlyCapturedValues, RunOptions } from "./types"
+
+export interface Options extends Partial<RunOptions> {
+  initialVariables?: ReadonlyCapturedValues
+}
 
 export const run = async (
   document: Hurl.Document,
-  options: Partial<Options> = {}
+  { initialVariables, signal }: Options = {}
 ) => {
-  const capturedValues: CapturedValues = new Map()
+  const capturedValues: CapturedValues = new Map(...(initialVariables ?? []))
 
-  await runDocument(document, { capturedValues, options })
+  await runDocument(document, { capturedValues, options: { signal } })
 
   return capturedValues
 }
