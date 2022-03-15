@@ -1,9 +1,9 @@
-import { Document } from "@htptp/hurl-types"
+import * as Hurl from "@htptp/hurl-types"
 import { runDocument } from "./run"
 import { CapturedValues, Options } from "./types"
 
 export const run = async (
-  document: Document,
+  document: Hurl.Document,
   options: Partial<Options> = {}
 ) => {
   const capturedValues: CapturedValues = new Map()
