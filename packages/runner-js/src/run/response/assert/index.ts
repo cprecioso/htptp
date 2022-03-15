@@ -8,7 +8,7 @@ export const runAssertions = async (
   { version, status, body, headers, asserts }: Assertions,
   ctx: ResponseContext
 ) => {
-  const { response } = ctx
+  const { response, interpolate } = ctx
 
   if (version && version !== "HTTP/*") {
     throw unsupportedEngine("HTTP Version Assertion")
@@ -24,7 +24,10 @@ export const runAssertions = async (
 
   if (headers) {
     for (const { name, value } of headers) {
-      assert.strictEqual(response.headers.get(name), value)
+      assert.strictEqual(
+        response.headers.get(interpolate(name)),
+        interpolate(value)
+      )
     }
   }
 

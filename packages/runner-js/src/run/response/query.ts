@@ -5,7 +5,7 @@ import { ResponseContext } from "../../types"
 
 export const runQuery = async (
   query: Hurl.Query,
-  { response }: ResponseContext
+  { response, interpolate }: ResponseContext
 ) => {
   if (query.subquery) throw unsupportedHurl("Subquery")
 
@@ -14,7 +14,7 @@ export const runQuery = async (
       return response.status
 
     case "header":
-      return response.headers.get(query.name)
+      return response.headers.get(interpolate(query.name))
 
     case "cookie":
       throw unsupportedHurl("Cookie Query")
@@ -26,13 +26,15 @@ export const runQuery = async (
       return await response.arrayBuffer()
 
     case "xpath":
-      return evaluateXpath(query.expr, await response.text())
+      return evaluateXpath(interpolate(query.expr), await response.text())
 
     case "jsonpath":
       throw unsupportedHurl("JSONPath Query")
 
     case "regex":
-      return (await response.text()).match(new RegExp(query.expr))?.[0][1]
+      return (await response.text()).match(
+        new RegExp(interpolate(query.expr))
+      )?.[0][1]
 
     case "variable":
       throw unsupportedHurl("Variable Query")

@@ -17,7 +17,7 @@ export const runBodyAssertion = async (
   body: Hurl.Body,
   ctx: ResponseContext
 ) => {
-  const { response } = ctx
+  const { response, interpolate } = ctx
 
   switch (body.type) {
     case "file": {
@@ -25,12 +25,15 @@ export const runBodyAssertion = async (
     }
 
     case "json": {
-      assert.deepStrictEqual(await response.json(), body.value)
+      assert.deepStrictEqual(
+        await response.json(),
+        JSON.parse(interpolate(JSON.stringify(body.value)))
+      )
       return
     }
 
     case "raw-string": {
-      assert.strictEqual(await response.text(), body.value)
+      assert.strictEqual(await response.text(), interpolate(body.value))
       return
     }
 
