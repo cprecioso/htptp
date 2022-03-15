@@ -2,7 +2,7 @@ import * as Hurl from "@htptp/hurl-types"
 import assert from "@htptp/polyfill-assert"
 import { decode as base64Decode } from "base64-arraybuffer"
 import { equalArrayBuffer } from "../../../binary"
-import { unsupportedHurl } from "../../../error"
+import { unknownHurl, unsupportedHurl } from "../../../error"
 import { ResponseContext } from "../../../types"
 
 export const runBodyAssertion = async (
@@ -15,7 +15,8 @@ export const runBodyAssertion = async (
     options: { loader },
   } = ctx
 
-  switch (body.type) {
+  const { type } = body
+  switch (type) {
     case "file": {
       const actualFile = await response.arrayBuffer()
       const expectedFile = await loader(body.filename)
@@ -43,7 +44,8 @@ export const runBodyAssertion = async (
       )
 
     case undefined: {
-      switch (body.encoding) {
+      const { encoding } = body
+      switch (encoding) {
         case "base64": {
           const actualFile = await response.arrayBuffer()
           const expectedFile = base64Decode(body.value)
@@ -52,11 +54,11 @@ export const runBodyAssertion = async (
         }
 
         default:
-          throw unsupportedHurl(`Unknown Body Assertion Encoding`)
+          throw unknownHurl(`Body Assertion Encoding`, encoding)
       }
     }
 
     default:
-      throw unsupportedHurl(`Unknown Body Assertion Type`)
+      throw unknownHurl(`Body Assertion Type`, type)
   }
 }

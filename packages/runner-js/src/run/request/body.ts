@@ -1,6 +1,6 @@
 import * as Hurl from "@htptp/hurl-types"
 import { decode as base64ToBuffer } from "base64-arraybuffer"
-import { unsupportedHurl } from "../../error"
+import { unknownHurl } from "../../error"
 import { RequestContext } from "../../types"
 
 export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
@@ -11,7 +11,8 @@ export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
     options: { loader },
   } = ctx
 
-  switch (body.type) {
+  const { type } = body
+  switch (type) {
     case "file":
       req.body = await loader(body.filename)
       return
@@ -29,20 +30,19 @@ export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
     }
 
     case undefined: {
-      switch (body.encoding) {
+      const { encoding } = body
+      switch (encoding) {
         case "base64": {
           req.body = base64ToBuffer(body.value)
           return
         }
 
         default:
-          throw unsupportedHurl(
-            `Unknown Request Body Encoding: ${body.encoding}`
-          )
+          throw unknownHurl(`Request Body Encoding`, encoding)
       }
     }
 
     default:
-      throw unsupportedHurl(`Unknown Request Body Type`)
+      throw unknownHurl(`Request Body Type`, type)
   }
 }

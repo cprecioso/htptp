@@ -1,6 +1,6 @@
 import * as Hurl from "@htptp/hurl-types"
 import { evaluateXpath } from "@htptp/polyfill-xpath"
-import { unsupportedEngine, unsupportedHurl } from "../../error"
+import { unknownHurl, unsupportedEngine, unsupportedHurl } from "../../error"
 import { ResponseContext } from "../../types"
 
 const runRegexQuery = (
@@ -14,7 +14,8 @@ const runSubquery = async (
   query: Hurl.Query["subquery"],
   ctx: ResponseContext
 ) => {
-  switch (query.type) {
+  const { type } = query
+  switch (type) {
     case "regex":
       return runRegexQuery(input, query, ctx)
 
@@ -22,14 +23,15 @@ const runSubquery = async (
       return input.length
 
     default:
-      throw unsupportedHurl("Unknown Subquery")
+      throw unknownHurl("Subquery", type)
   }
 }
 
 const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
   const { response, interpolate, capturedValues } = ctx
 
-  switch (query.type) {
+  const { type } = query
+  switch (type) {
     case "status":
       return response.status
 
@@ -61,7 +63,7 @@ const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
       throw unsupportedEngine("Duration Query")
 
     default:
-      throw unsupportedHurl("Unknown Query")
+      throw unsupportedHurl("Query", type)
   }
 }
 

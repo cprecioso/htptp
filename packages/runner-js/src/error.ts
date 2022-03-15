@@ -5,6 +5,9 @@ export const unsupportedHurl = (hurlFeature: string, workaround?: string) =>
     }`
   )
 
+export const unknownHurl = (hurlFeature: string, type: never) =>
+  new Error(`Unknown Hurl feature: [${hurlFeature}${type ? ` = ${type}` : ""}]`)
+
 export const unsupportedEngine = (hurlFeature: string, workaround?: string) =>
   new Error(
     `Unsupported feature in the engine: [${hurlFeature}]${
