@@ -35,13 +35,20 @@ export const runRequest = async (
     multipart_form_data,
     query_string_params,
   }: Hurl.Request,
-  { options, capturedValues }: EntryContext
+  { options, capturedValues, interpolate }: EntryContext
 ) => {
   const url = new URL(explicitUrl)
   const headers = new Headers()
   const req: FetchRequest = {}
 
-  const ctx: RequestContext = { url, headers, req, options, capturedValues }
+  const ctx: RequestContext = {
+    url,
+    headers,
+    req,
+    options,
+    capturedValues,
+    interpolate,
+  }
 
   req.method = method
 

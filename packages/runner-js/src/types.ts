@@ -9,9 +9,12 @@ export interface RunOptions {
   signal?: AbortSignal
 }
 
+export type Interpolator = (input: string) => string
+
 export interface EntryContext {
   options: Readonly<RunOptions>
   capturedValues: CapturedValues
+  interpolate: Interpolator
 }
 
 export interface RequestContext {
@@ -20,6 +23,7 @@ export interface RequestContext {
   req: FetchRequest
   headers: Headers
   capturedValues: CapturedValues
+  interpolate: Interpolator
 }
 
 export type Assertions = Omit<Hurl.Response, "captures">
@@ -31,4 +35,5 @@ export interface ResponseContext {
   options: Readonly<RunOptions>
   response: FetchResponse
   capturedValues: CapturedValues
+  interpolate: Interpolator
 }

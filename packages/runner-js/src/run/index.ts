@@ -13,10 +13,15 @@ export const runDocument = async (
 }
 
 export const runEntry = async (entry: Hurl.Entry, ctx: EntryContext) => {
-  const { options, capturedValues } = ctx
+  const { options, capturedValues, interpolate } = ctx
 
   const response = await runRequest(entry.request, ctx)
   if (entry.response) {
-    await runResponse(entry.response, { response, capturedValues, options })
+    await runResponse(entry.response, {
+      response,
+      capturedValues,
+      options,
+      interpolate,
+    })
   }
 }
