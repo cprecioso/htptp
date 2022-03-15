@@ -70,7 +70,7 @@ export const runRequest = async (
   }
 
   if (body) {
-    await runBody(body, ctx)
+    runBody(body, ctx)
   }
 
   if (cookies) {

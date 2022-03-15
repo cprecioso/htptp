@@ -3,7 +3,7 @@ import { evaluateXpath } from "@htptp/polyfill-xpath"
 import { unsupportedEngine, unsupportedHurl } from "../../error"
 import { ResponseContext } from "../../types"
 
-const runRegexQuery = async (
+const runRegexQuery = (
   input: string,
   query: Hurl.RegexQuery,
   { interpolate }: ResponseContext
@@ -16,7 +16,7 @@ const runSubquery = async (
 ) => {
   switch (query.type) {
     case "regex":
-      return await runRegexQuery(input, query, ctx)
+      return runRegexQuery(input, query, ctx)
 
     case "count":
       return input.length
@@ -52,7 +52,7 @@ const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
       throw unsupportedHurl("JSONPath Query")
 
     case "regex":
-      return await runRegexQuery(await response.text(), query, ctx)
+      return runRegexQuery(await response.text(), query, ctx)
 
     case "variable":
       return capturedValues.get(interpolate(query.name))

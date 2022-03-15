@@ -3,7 +3,7 @@ import { decode as base64ToBuffer } from "base64-arraybuffer"
 import { unsupportedHurl } from "../../error"
 import { RequestContext } from "../../types"
 
-export const runBody = async (body: Hurl.Body, ctx: RequestContext) => {
+export const runBody = (body: Hurl.Body, ctx: RequestContext) => {
   const { req, headers, interpolate } = ctx
 
   switch (body.type) {
