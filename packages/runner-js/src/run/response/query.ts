@@ -63,7 +63,7 @@ const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
       throw unsupportedEngine("Duration Query")
 
     default:
-      throw unsupportedHurl("Query", type)
+      throw unknownHurl("Query", type)
   }
 }
 

@@ -6,5 +6,5 @@ export const runExplicitAssertion = async (
   assertion: Hurl.Assertion,
   ctx: ResponseContext
 ) => {
-  throw unsupportedHurl("Assertion Queries")
+  throw unsupportedHurl("Explicit Assertions")
 }
