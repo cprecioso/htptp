@@ -1,4 +1,5 @@
 import * as Hurl from "@htptp/hurl-types"
+import jsonpath from "jsonpath"
 import { evaluateXpath } from "@htptp/polyfill-xpath"
 import { unknownHurl, unsupportedEngine, unsupportedHurl } from "../../error"
 import { ResponseContext } from "../../types"
@@ -51,7 +52,7 @@ const runMainQuery = async (query: Hurl.Query, ctx: ResponseContext) => {
       return evaluateXpath(interpolate(query.expr), await response.text())
 
     case "jsonpath":
-      throw unsupportedHurl("JSONPath Query")
+      return jsonpath.query(await response.json(), query.expr)
 
     case "regex":
       return runRegexQuery(await response.text(), query, ctx)
