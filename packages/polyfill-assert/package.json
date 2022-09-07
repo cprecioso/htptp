@@ -13,6 +13,9 @@
   },
   "author": "Carlos Precioso",
   "license": "ISC",
+  "engines": {
+    "node": ">=16"
+  },
   "main": "dist/node.mjs",
   "browser": "dist/browser.mjs",
   "types": "dist/browser.d.ts",

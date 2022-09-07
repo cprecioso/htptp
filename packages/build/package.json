@@ -1,6 +1,9 @@
 {
   "name": "@htptp/build",
   "private": true,
+  "engines": {
+    "node": ">=16"
+  },
   "peerDependencies": {
     "rollup": "^2.70.0",
     "typescript": "^4.6.2"

@@ -4,6 +4,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build:all": "$npm_execpath workspaces foreach -pv --topological-dev run build",
     "clean:all": "$npm_execpath workspaces foreach -p run clean",
