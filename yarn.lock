@@ -76,10 +76,10 @@ __metadata:
     read-pkg: ^7.1.0
     rollup: ^2.79.0
     rollup-plugin-ts: ^3.0.2
-    typescript: ^4.8.2
+    typescript: ~4.8.2
   peerDependencies:
     rollup: ^2.70.0
-    typescript: ^4.6.2
+    typescript: ~4.6.2
   languageName: unknown
   linkType: soft
 
@@ -94,7 +94,7 @@ __metadata:
     del-cli: ^5.0.0
     execa: ^6.1.0
     rollup: ^2.79.0
-    typescript: ^4.8.2
+    typescript: ~4.8.2
     wasm-pack: ^0.10.3
   languageName: unknown
   linkType: soft
@@ -106,7 +106,7 @@ __metadata:
     "@htptp/build": "workspace:^"
     del-cli: ^5.0.0
     rollup: ^2.79.0
-    typescript: ^4.8.2
+    typescript: ~4.8.2
   languageName: unknown
   linkType: soft
 
@@ -119,7 +119,7 @@ __metadata:
     assert: ^2.0.0
     del-cli: ^5.0.0
     rollup: ^2.79.0
-    typescript: ^4.8.2
+    typescript: ~4.8.2
   languageName: unknown
   linkType: soft
 
@@ -131,7 +131,7 @@ __metadata:
     del-cli: ^5.0.0
     node-fetch: "patch:node-fetch@^3.2.10#patches/node-fetch.patch"
     rollup: ^2.79.0
-    typescript: ^4.8.2
+    typescript: ~4.8.2
   languageName: unknown
   linkType: soft
 
@@ -146,7 +146,7 @@ __metadata:
     fontoxpath: ^3.25.1
     rollup: ^2.79.0
     slimdom-sax-parser: ^1.5.3
-    typescript: ^4.8.2
+    typescript: ~4.8.2
   languageName: unknown
   linkType: soft
 
@@ -154,10 +154,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@htptp/repo@workspace:."
   dependencies:
-    prettier: ^2.7.1
-    prettier-plugin-pkg: ^0.17.1
-    prettier-plugin-sh: ^0.12.8
-    typescript: ^4.8.2
+    prettier: 2.7.1
+    prettier-plugin-organize-imports: 3.1.1
+    prettier-plugin-pkg: 0.17.1
+    prettier-plugin-sh: 0.12.8
+    typescript: ~4.8.2
   languageName: unknown
   linkType: soft
 
@@ -176,7 +177,7 @@ __metadata:
     del-cli: ^5.0.0
     jsonpath: ^1.1.1
     rollup: ^2.79.0
-    typescript: ^4.8.2
+    typescript: ~4.8.2
     universal-base64: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -2402,7 +2403,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-pkg@npm:^0.17.1":
+"prettier-plugin-organize-imports@npm:3.1.1":
+  version: 3.1.1
+  resolution: "prettier-plugin-organize-imports@npm:3.1.1"
+  peerDependencies:
+    "@volar/vue-typescript": ">=0.40.2"
+    prettier: ">=2.0"
+    typescript: ">=2.9"
+  peerDependenciesMeta:
+    "@volar/vue-typescript":
+      optional: true
+  checksum: a5776ddf70ba83990c5f97799a57e9844379226c25c5d3e89c072dce3615575aacc1da9c0870b86dcfd4df80df4194971538765f84a168cbb41d36de81740c30
+  languageName: node
+  linkType: hard
+
+"prettier-plugin-pkg@npm:0.17.1":
   version: 0.17.1
   resolution: "prettier-plugin-pkg@npm:0.17.1"
   peerDependencies:
@@ -2411,7 +2426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sh@npm:^0.12.8":
+"prettier-plugin-sh@npm:0.12.8":
   version: 0.12.8
   resolution: "prettier-plugin-sh@npm:0.12.8"
   dependencies:
@@ -2424,7 +2439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.7.1":
+"prettier@npm:2.7.1":
   version: 2.7.1
   resolution: "prettier@npm:2.7.1"
   bin:
@@ -3036,7 +3051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.8.2":
+"typescript@npm:~4.8.2":
   version: 4.8.2
   resolution: "typescript@npm:4.8.2"
   bin:
@@ -3046,7 +3061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.8.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@~4.8.2#~builtin<compat/typescript>":
   version: 4.8.2
   resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"
   bin:
